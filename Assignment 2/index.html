@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+
+      button > span.glyphicon-ok {
+        color: green;
+      }
+
+      button > span.glyphicon-remove {
+        color: red;
+      }
+    </style>
+
+    <link
+  </head>
+<body ng-app="ShoppingListCheckOffApp">
+  <div class="container">
+  <h1>Shopping List Check Off</h1>
+
+  <div class="row">
+
+    <!-- To Buy List -->
+    <div class="col-md-6" ng-controller="ToBuyController as list1">
+     <h2>To Buy:</h2>
+     <div>
+       <input type="text" ng-model="list1.itemName" placeholder="item name" required>
+       <input type="text" ng-model="list1.itemQuantity" placeholder="quantity" type="number" required>
+       <button ng-click="list1.addItem();">Add Item</button>
+     </div>
+     <ul ng-repeat="item in list1.items">
+       <li>Buy {{ item.quantity }} {{ item.name }}(s)
+         <button ng-click="list1.buyItem($index);" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button>
+         <button ng-click="list1.removeItem($index);" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+       </li>
+     </ul>
+     <div ng-hide="list1.items.length" class="emptyMessage">Everything is Bought!</div>
+    </div>
+
+    <!-- Already Bought List -->
+    <div class="col-md-6" ng-controller="AlreadyBoughtController as list2">
+     <h2>Already Bought:</h2>
+     <ul ng-repeat="item in list2.items">
+       <li>Bought {{item.quantity}} {{item.name}}(s)</li>
+     </ul>
+     <div ng-hide="list2.items.length" class="emptyMessage">Nothing bought yet.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
